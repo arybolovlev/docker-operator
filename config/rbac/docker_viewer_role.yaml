@@ -1,0 +1,27 @@
+# permissions for end users to view dockers.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: docker-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: docker-operator
+    app.kubernetes.io/part-of: docker-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: docker-viewer-role
+rules:
+- apiGroups:
+  - container.terraform.io
+  resources:
+  - dockers
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - container.terraform.io
+  resources:
+  - dockers/status
+  verbs:
+  - get
