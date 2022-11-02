@@ -1,0 +1,10 @@
+componentConfig: true
+domain: terraform.io
+layout:
+- go.kubebuilder.io/v3
+plugins:
+  manifests.sdk.operatorframework.io/v2: {}
+  scorecard.sdk.operatorframework.io/v2: {}
+projectName: docker-operator
+repo: github.com/arybolovlev/docker-operator
+version: "3"
