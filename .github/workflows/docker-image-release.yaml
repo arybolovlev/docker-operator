@@ -5,6 +5,9 @@ on:
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+*"
 
+env:
+  DOCKER_HUB_REPO: arybolovlev/docker-operator
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,4 +34,4 @@ jobs:
           file: ${{ github.workspace }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/docker-operator:${{ github.ref_name }},${{ secrets.DOCKER_HUB_USERNAME }}/docker-operator:latest
+          tags: ${{ env.DOCKER_HUB_REPO }}:${{ github.ref_name }},${{ env.DOCKER_HUB_REPO }}:latest
