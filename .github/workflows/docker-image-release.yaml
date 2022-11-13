@@ -20,8 +20,6 @@ jobs:
           
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
-        with:
-          platforms: linux/amd64,linux/arm64
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -30,7 +28,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./Dockerfile
+          file: ${{ github.workspace }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/docker-operator:${{ github.ref_name }},${{ secrets.DOCKER_HUB_USERNAME }}/docker-operator:latest
