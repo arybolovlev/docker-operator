@@ -32,6 +32,6 @@ jobs:
         with:
           context: .
           file: ${{ github.workspace }}/Dockerfile
-          platforms: linux/amd64
+          platforms: linux/arm64
           push: true
           tags: ${{ env.DOCKER_HUB_REPO }}:${{ github.ref_name }},${{ env.DOCKER_HUB_REPO }}:latest
