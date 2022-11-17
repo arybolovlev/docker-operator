@@ -6,3 +6,5 @@ Hi!
 Ugly Hi, don't know how ot make it pretty Hi!
 
 It is not ugly but has its own beauty! :)
+
+Why engineers like dark theme in VScode? Answer: because white theme attracts bugs! HA-HA! SO TRUE!
