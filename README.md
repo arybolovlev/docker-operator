@@ -2,3 +2,7 @@
 
 
 Hi!
+
+Ugly Hi, don't know how ot make it pretty Hi!
+
+It is not ugly but has its own beauty! :)
