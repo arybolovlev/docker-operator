@@ -16,7 +16,6 @@ jobs:
         uses: actions/checkout@v3
         
       - name: Docker image tag
-        working-directory: ${{ github.workspace }}
         env:
           TAG: ${{ github.ref_name }}
         run: |
