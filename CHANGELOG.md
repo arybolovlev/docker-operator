@@ -1,3 +1,3 @@
-## 0.0.7 (November 2, 2022)
+## 0.0.6 (November 22, 2022)
 
 * Fix concurrency issue.
