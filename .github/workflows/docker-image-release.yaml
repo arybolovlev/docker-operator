@@ -16,8 +16,9 @@ jobs:
         uses: actions/checkout@v3
         
       - name: Docker image tag
-        run: |
+        env:
           TAG=${{ github.event.release.tag_name }}
+        run: |
           echo "DOCKER_IMAGE_TAG=${TAG#v}" >> $GITHUB_ENV
 
       - name: Login to Docker Hub
@@ -37,8 +38,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: .
-          file: ${{ github.workspace }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ env.DOCKER_HUB_REPO }}:${{ env.DOCKER_IMAGE_TAG }},${{ env.DOCKER_HUB_REPO }}:latest
