@@ -5,6 +5,9 @@ on:
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+*"
 
+permissions:
+  contents: write
+
 env:
   DOCKER_HUB_REPO: arybolovlev/docker-operator
   RELEASE_NOTES: /tmp/release-notes.txt
