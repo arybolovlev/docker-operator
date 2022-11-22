@@ -17,7 +17,7 @@ jobs:
         
       - name: Docker image tag
         env:
-          TAG=${{ github.event.release.tag_name }}
+          TAG=${{ github.ref_name }}
         run: |
           echo "DOCKER_IMAGE_TAG=${TAG#v}" >> $GITHUB_ENV
 
