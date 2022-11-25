@@ -1,38 +1,56 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: ':bug:'
-labels: ''
+title: '🐛'
+labels: 'bug'
 assignees: ''
 
 ---
+### Terraform Version and Provider Version
+ - Operator version:
+ - Kubernetes version:
+ - Kind: Workspace | Module
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+### YAML Manifest File
+```yaml
+# Copy-paste your YAML manifest here
+```
 
-**To Reproduce**
+### Output Log
+<!---
+Please provider a link to a GitHub Gist containing the complete output log.
+Please DO NOT paste the debug output in the issue; just paste a link to the Gist.
+--->
+
+### Kubectl Outputs
+<!---
+Please provider a link to a GitHub Gist containing the complete kubectl outputs.
+Please DO NOT paste the kubectl output in the issue; just paste a link to the Gist.
+--->
+
+### Steps To Reproduce
 Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+1. `kubectl apply -f workspace.yaml`
+2. `kubectl describe workspace this`
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+### Expected Behavior
+What should have happened?
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+### Actual Behavior
+What actually happened?
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
-
-**Additional context**
+### Additional context
 Add any other context about the problem here.
+
+### References
+<!---
+Are there any other GitHub issues (open or closed) or Pull Requests that should be linked here?
+For example:
+ - GH-0000
+-->
+
+
+### Community Note
+<!--- Please keep this note for the community --->
+* Please vote on this issue by adding a 👍 [reaction](https://blog.github.com/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/) to the original issue to help the community and maintainers prioritize this request
+* If you are interested in working on this issue or have submitted a pull request, please leave a comment
