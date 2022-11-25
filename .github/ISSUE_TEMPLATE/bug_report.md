@@ -1,11 +1,12 @@
 ---
-name: 🐛 Bug report
+name: "\U0001F41B Bug report"
 about: Create a report to help us improve
-title: '🐛 '
-labels: 'bug'
+title: "\U0001F41B "
+labels: bug
 assignees: ''
 
 ---
+
 ### Terraform Version and Provider Version
  - Operator version:
  - Kubernetes version:
