@@ -20,7 +20,7 @@ Please provide a usage example if you have implemented a new feature.
 --->
 
 ### Release Note
-Release note for [CHANGELOG](https://github.com/arybolovlev/docker-operator/new/main/CHANGELOG.md):
+Release note for [CHANGELOG](./CHANGELOG.md):
 <!--
 Please write a release note message.
 If the change is not user-facing, leave "NONE" in the release-note block below.
