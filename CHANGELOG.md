@@ -1,3 +1,5 @@
+## 0.0.9 (December 6, 2022)
+
 ## 0.0.8 (December 6, 2022)
 
 🐛 BUG FIXES:
