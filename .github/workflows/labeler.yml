@@ -17,7 +17,7 @@ jobs:
         sync-labels: true
 
     - name: Label the PR size
-      uses: CodelyTV/pr-size-labeler@54ef36785e9f4cb5ecf1949cfc9b00dbb621d761 # v1.8.1
+      uses: arybolovlev/pr-size-labeler@main
       with:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         xs_label: 'size/XS'
