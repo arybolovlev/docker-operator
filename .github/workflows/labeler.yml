@@ -4,7 +4,9 @@ on:
    branches:
    - main
 
-permissions: write-all
+permissions:
+  pull-requests: write
+  issues: write
 
 jobs:
   triage:
@@ -28,8 +30,7 @@ jobs:
           Please make sure you are NOT addressing multiple issues with one PR.
           Note this PR might be rejected due to its size.
         github_api_url: 'api.github.com'
-
-#     - uses: actions/labeler@v4
-#       with:
-#         repo-token: "${{ secrets.GITHUB_TOKEN }}"
-#         sync-labels: true
+    - uses: actions/labeler@v4
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        sync-labels: true
