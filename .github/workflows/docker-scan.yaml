@@ -26,11 +26,12 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Build Docker image
+      - name: Build and load Docker image
         uses: docker/build-push-action@v3
         with:
           platforms: linux/amd64
           push: false
+          load: true
           tags: ${{ steps.meta.outputs.tags }}
 
       - name: Scan for vulnerabilities
