@@ -37,6 +37,11 @@ jobs:
   release-docker-hub:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
       - name: Setup Go
         id: golang
         uses: actions/setup-go@v3
