@@ -21,6 +21,11 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+          
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        with:
+          go-version-file: 'go.mod'
 
       - name: Generate Release Notes
         # Fetch CHANGELOG.md contents up to Git tag prior to this release, skipping top two lines
