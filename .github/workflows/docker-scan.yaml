@@ -38,6 +38,13 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: image
-          format: table
+          format: sarif
           image-ref: ${{ steps.meta.outputs.tags }}
+          output: 'trivy-results.sarif'
           exit-code: '1'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          category: 'Trivy Security Scan'
+          sarif_file: 'trivy-results.sarif'
