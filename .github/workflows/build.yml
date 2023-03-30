@@ -15,7 +15,11 @@ jobs:
         with:
           fetch-depth: 0
       - name: Set product version
+        id: set-product-version
         uses: hashicorp/actions-set-product-version@06bddb8ee70f0dda2e21c39b5f0913d36cc9d657 # v1
       - name: Validate
         run: |
-          env
+          echo ${{ steps.set-product-version.outputs.product-version }}
+          echo ${{ steps.set-product-version.outputs.prerelease-product-version }}
+          echo ${{ steps.set-product-version.outputs.base-product-version }}
+          echo ${{ steps.set-product-version.outputs.minor-product-version }}
