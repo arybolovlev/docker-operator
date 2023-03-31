@@ -4,22 +4,88 @@ on:
   workflow_dispatch:
 
 env:
-  PKG_NAME: "docker-operator"
+  PKG_NAME: 'docker-operator'
 
 jobs:
-  set-product-version:
+  get-go-version:
     runs-on: ubuntu-latest
+    outputs:
+      go-version: ${{ steps.set-up-go.outputs.go-version }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+      - name: Setup Go
+        id: set-up-go
+        uses: actions/setup-go@4d34df0c2316fe8122ab82dc22947d607c0c91f9 # v4.0.0
         with:
-          fetch-depth: 0
+          go-version-file: 'go.mod'
+
+  set-product-version:
+    runs-on: ubuntu-latest
+    outputs:
+      product-version: ${{ steps.set-product-version.outputs.product-version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
       - name: Set product version
         id: set-product-version
         uses: hashicorp/actions-set-product-version@06bddb8ee70f0dda2e21c39b5f0913d36cc9d657 # v1
-      - name: Validate
-        run: |
-          echo ${{ steps.set-product-version.outputs.product-version }}
-          echo ${{ steps.set-product-version.outputs.prerelease-product-version }}
-          echo ${{ steps.set-product-version.outputs.base-product-version }}
-          echo ${{ steps.set-product-version.outputs.minor-product-version }}
+
+  generate-metadata-file:
+    needs: set-product-version
+    runs-on: ubuntu-latest
+    env:
+      METADATA_FILE_NAME: 'metadata.json'
+    outputs:
+      filepath: ${{ steps.generate-metadata-file.outputs.filepath }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+      - name: Generate metadata file
+        id: generate-metadata-file
+        uses: hashicorp/actions-generate-metadata@fdbc8803a0e53bcbb912ddeee3808329033d6357 # v1.1.1
+        with:
+          version: ${{ needs.set-product-version.outputs.product-version }}
+          product: ${{ env.PKG_NAME }}
+          repositoryOwner: 'hashicorp'
+          metadataFileName: ${{ env.METADATA_FILE_NAME }}
+      - uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+        with:
+          name: metadata.json
+          path: ${{ env.METADATA_FILE_NAME }}
+
+  build:
+    needs: [set-product-version, get-go-version]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: ["amd64", "arm64"]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3.5.0
+      - name: Setup Go
+        id: set-up-go
+        uses: actions/setup-go@4d34df0c2316fe8122ab82dc22947d607c0c91f9 # v4.0.0
+        with:
+          go-version-file: 'go.mod'
+
+      - name: Go build
+        uses: hashicorp/actions-go-build@e20c6be7bf010e40e930dab20e6da63176725ec1 # v0.1.9
+        with:
+          product_name: ${{ env.PKG_NAME }}
+          product_version: ${{ needs.set-product-version.outputs.product-version }}
+          go_version: ${{ needs.get-go-version.outputs.go-version }}
+          os: linux
+          arch: ${{ matrix.arch }}
+          reproducible: report
+          instructions: |
+            go build -trimpath main.go
+
+#      - name: Upload binaries
+#        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
+#        with:
+#          name: ${{ }}
+#          path: ${{ env.PKG_NAME }}_${{ needs.set-product-version.outputs.product-version }}_linux_${{ matrix.arch }}.zip
+#
+#  build-docker:
+#    runs-on: ubuntu-latest
