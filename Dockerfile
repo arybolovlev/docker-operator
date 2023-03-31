@@ -2,13 +2,16 @@ ARG GO_VERSION=1.20
 
 # Build the manager binary
 FROM golang:$GO_VERSION as builder
+
 ARG TARGETOS
 ARG TARGETARCH
 
 WORKDIR /workspace
+
 # Copy the Go Modules manifests
 COPY go.mod go.mod
 COPY go.sum go.sum
+
 # cache deps before building and copying source so that we don't need to re-download as much
 # and so that source changes don't invalidate our downloaded layer
 RUN go mod download
@@ -28,6 +31,11 @@ RUN CGO_ENABLED=0 GOOS=${TARGETOS:-linux} GOARCH=${TARGETARCH} go build -a -trim
 # Use distroless as minimal base image to package the manager binary
 # Refer to https://github.com/GoogleContainerTools/distroless for more details
 FROM gcr.io/distroless/static:nonroot as release-default
+
+ARG PRODUCT_VERSION
+
+LABEL version=$PRODUCT_VERSION
+
 WORKDIR /
 COPY --from=builder /workspace/manager .
 USER 65532:65532
