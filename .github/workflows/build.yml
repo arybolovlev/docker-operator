@@ -80,7 +80,7 @@ jobs:
           reproducible: report
           instructions: |
             mkdir dist
-            go build -trimpath -o $BIN_PATH }} main.go
+            go build -trimpath -o $BIN_PATH main.go
 
 #      - name: Upload binaries
 #        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce # v3.1.2
