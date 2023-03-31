@@ -84,8 +84,7 @@ jobs:
 
   build-docker:
     name: Docker ${{ matrix.arch }} build
-    #needs: [build, get-go-version, set-product-version]
-    needs: [get-go-version, set-product-version]
+    needs: [build, get-go-version, set-product-version]
     runs-on: ubuntu-latest
     strategy:
       matrix:
