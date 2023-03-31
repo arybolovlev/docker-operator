@@ -84,7 +84,7 @@ jobs:
 
   build-docker:
     name: Docker ${{ matrix.arch }} build
-    needs: build
+    needs: [build, get-go-version]
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -96,9 +96,12 @@ jobs:
 
       - name: Docker build
         uses: hashicorp/actions-docker-build@5e6230693cdbf8a6485b36f17740447ad28bf353 # v1.3.4
+        env:
+          VERSION: ${{ needs.set-product-version.outputs.product-version }}
+          GO_VERSION: ${{ needs.get-go-version.outputs.go-version }}
         with:
-          version: ${{ needs.set-product-version.outputs.product-version }}
+          version: ${{ env.VERSION }}
           target: release-default
           arch: ${{ matrix.arch }}
           tags: |
-            docker.io/${{ env.DOCKER_HUB_REPO }}:${{ needs.set-product-version.outputs.product-version }}
+            docker.io/${{ env.DOCKER_HUB_REPO }}:${{ env.VERSION }}
