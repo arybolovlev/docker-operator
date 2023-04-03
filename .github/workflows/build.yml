@@ -96,5 +96,3 @@ jobs:
           arch: ${{ matrix.arch }}
           tags: |
             docker.io/${{ env.DOCKER_HUB_REPO }}:${{ env.VERSION }}
-          dev_tags: |
-            docker.io/${{ env.DOCKER_HUB_DEV_REPO }}:${{ env.VERSION }}
