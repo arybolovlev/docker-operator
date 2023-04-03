@@ -42,9 +42,6 @@ RUN CGO_ENABLED=0 GOOS=${TARGETOS:-linux} GOARCH=${TARGETARCH} go build -a -trim
 FROM gcr.io/distroless/static:nonroot as dev
 
 ARG BIN_NAME
-ARG PRODUCT_VERSION
-
-LABEL version=$PRODUCT_VERSION
 
 WORKDIR /
 COPY --from=builder /build/$BIN_NAME .
