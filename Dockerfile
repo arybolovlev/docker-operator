@@ -44,7 +44,7 @@ FROM gcr.io/distroless/static:nonroot as dev
 ARG BIN_NAME
 
 WORKDIR /
-COPY --from=builder /build/$BIN_NAME .
+COPY --from=dev-builder /build/$BIN_NAME .
 USER 65532:65532
 
 ENTRYPOINT ["/$BIN_NAME"]
