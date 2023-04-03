@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
 
 env:
+  BIN_NAME: ${{ vars.BIN_NAME }}
   PKG_NAME: 'docker-operator'
   DOCKER_HUB_REPO: 'arybolovlev/docker-operator'
 
