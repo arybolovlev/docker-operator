@@ -1,6 +1,3 @@
-# Copyright (c) HashiCorp, Inc.
-# SPDX-License-Identifier: MPL-2.0
-
 # This Dockerfile contains multiple targets.
 # Use 'docker build --target=<name> .' to build one.
 #
@@ -10,7 +7,7 @@
 ARG GO_VERSION=1.20
 
 # ===================================
-# 
+#
 #   Non-release images.
 #
 # ===================================
@@ -23,6 +20,8 @@ FROM golang:$GO_VERSION as dev-builder
 ARG BIN_NAME
 ARG TARGETOS
 ARG TARGETARCH
+
+ENV BIN_NAME=$BIN_NAME
 
 WORKDIR /build
 
@@ -42,6 +41,11 @@ RUN CGO_ENABLED=0 GOOS=${TARGETOS:-linux} GOARCH=${TARGETARCH} go build -a -trim
 FROM gcr.io/distroless/static:nonroot as dev
 
 ARG BIN_NAME
+ARG PRODUCT_VERSION
+
+ENV BIN_NAME=$BIN_NAME
+
+LABEL version=$PRODUCT_VERSION
 
 WORKDIR /
 COPY --from=dev-builder /build/$BIN_NAME .
@@ -50,7 +54,38 @@ USER 65532:65532
 ENTRYPOINT ["/$BIN_NAME"]
 
 # ===================================
-# 
+#
+#   Release images.
+#
+# ===================================
+
+
+# default release image
+# -----------------------------------
+FROM gcr.io/distroless/static:nonroot AS release-default
+
+ARG BIN_NAME
+ARG PRODUCT_VERSION
+ARG PRODUCT_REVISION
+ARG PRODUCT_NAME=$BIN_NAME
+ARG TARGETOS
+ARG TARGETARCH
+
+ENV BIN_NAME=$BIN_NAME
+
+LABEL maintainer="Team Terraform Ecosystem - Kubernetes <team-tf-k8s@hashicorp.com>"
+LABEL version=$PRODUCT_VERSION
+LABEL revision=$PRODUCT_REVISION
+
+COPY LICENSE /licenses/copyright.txt
+COPY dist/$TARGETOS/$TARGETARCH/$BIN_NAME /bin/
+
+USER 65532:65532
+
+ENTRYPOINT ["/$BIN_NAME"]
+
+# ===================================
+#
 #   Set default target to 'dev'.
 #
 # ===================================
