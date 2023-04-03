@@ -47,6 +47,8 @@ jobs:
     name: Go Linux ${{ matrix.arch }} build
     needs: [set-product-version]
     runs-on: ubuntu-latest
+    outputs:
+      go-version: ${{ steps.set-up-go.outputs.go-version }}
     strategy:
       matrix:
         arch: ["amd64", "arm64"]
@@ -64,7 +66,7 @@ jobs:
           product_name: ${{ env.PKG_NAME }}
           product_version: ${{ needs.set-product-version.outputs.product-version }}
           bin_name: ${{ env.BIN_NAME }}
-          go_version: ${{ build.set-up-go.outputs.go-version }}
+          go_version: ${{ steps.set-up-go.outputs.go-version }}
           os: linux
           arch: ${{ matrix.arch }}
           reproducible: report
@@ -86,7 +88,7 @@ jobs:
         uses: hashicorp/actions-docker-build@5e6230693cdbf8a6485b36f17740447ad28bf353 # v1.3.4
         env:
           VERSION: ${{ needs.set-product-version.outputs.product-version }}
-          GO_VERSION: ${{ needs.build.set-up-go.outputs.go-version }}
+          GO_VERSION: ${{ needs.build.outputs.go-version }}
         with:
           version: ${{ env.VERSION }}
           bin_name: ${{ env.BIN_NAME }}
