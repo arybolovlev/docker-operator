@@ -5,6 +5,7 @@ on:
 
 env:
   DOCKER_IMAGE: docker-operator
+  BIN_NAME: docker-operator
 
 jobs:
   release-docker-hub:
