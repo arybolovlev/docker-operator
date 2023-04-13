@@ -54,7 +54,8 @@ jobs:
         with:
           build-contexts: |
             golang=docker-image://golang:${{ steps.golang.outputs.go-version }}
-          platforms: linux/amd64,linux/arm64
+          # Due to the Docker Buildx limitation only one platrom can be here.
+          platforms: linux/amd64
           push: false
           load: true
           tags: ${{ steps.meta.outputs.tags }}
