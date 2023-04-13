@@ -1,7 +1,7 @@
 name: Pre-build Docker Image
 
 on:
-  push:
+  pull_request::
     branches:
       - 'release/v*'
 
