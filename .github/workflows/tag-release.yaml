@@ -1,11 +1,12 @@
 name: Tag Release
+
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
     paths:
       - version/VERSION
+
 jobs:
   tag_release:
     runs-on: ubuntu-latest
