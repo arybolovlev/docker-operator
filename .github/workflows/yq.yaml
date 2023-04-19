@@ -9,4 +9,4 @@ jobs:
     steps:
       - name: Install yq
         run: |
-          sudo apt install -y yq
+          snap install yq
