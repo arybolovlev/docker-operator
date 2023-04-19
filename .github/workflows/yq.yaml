@@ -1,0 +1,12 @@
+name: Install yq
+
+on:
+   workflow_dispatch:
+
+jobs:
+  install_yq:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install yq
+        run: |
+          sudo apt install -y yq
