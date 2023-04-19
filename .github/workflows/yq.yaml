@@ -4,7 +4,7 @@ on:
    workflow_dispatch:
 
 env:
-  VERSION: $(cat ${{ github.workspace }}/version/VERSION)
+  VERSION: $(cat version/VERSION)
 
 jobs:
   install_yq:
@@ -15,8 +15,5 @@ jobs:
       - name: Install yq
         run: |
           sudo snap install yq
-          pwd
-          ls -lah
-          echo ${{ github.workspace }}
-          ls -lah ${{ github.workspace }}
           echo ${{ env.VERSION }}
+          scripts/update-helm-chart.sh
