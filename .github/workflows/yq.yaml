@@ -3,6 +3,9 @@ name: Install yq
 on:
    workflow_dispatch:
 
+env:
+  VERSION: $(cat ${{ github.workspace }}/version/VERSION)
+
 jobs:
   install_yq:
     runs-on: ubuntu-latest
@@ -16,3 +19,4 @@ jobs:
           ls -lah
           echo ${{ github.workspace }}
           ls -lah ${{ github.workspace }}
+          echo ${{ env.VERSION }}
