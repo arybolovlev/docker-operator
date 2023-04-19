@@ -14,3 +14,5 @@ jobs:
           sudo snap install yq
           pwd
           ls -lah
+          echo ${{ github.workspace }}
+          ls -lah ${{ github.workspace }}
