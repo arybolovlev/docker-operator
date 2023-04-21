@@ -3,6 +3,9 @@ name: Install yq
 on:
    workflow_dispatch:
 
+permissions:
+  pull-requests: write
+
 env:
   VERSION: $(cat version/VERSION)
 
@@ -17,4 +20,4 @@ jobs:
           sudo snap install yq
           echo ${{ env.VERSION }}
           scripts/update-helm-chart.sh
-          echo ${{ github.event.pull_request }}
+          git status
