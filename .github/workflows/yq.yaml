@@ -17,3 +17,4 @@ jobs:
           sudo snap install yq
           echo ${{ env.VERSION }}
           scripts/update-helm-chart.sh
+          echo ${{ github.event.pull_request }}
